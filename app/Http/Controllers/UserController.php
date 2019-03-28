@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User; 
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +28,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $table = "Tambah Data User";
+        return view('pages.user.register', compact('table'));
     }
 
     /**
@@ -35,14 +40,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new UserModel([
-            'name' => $request->get('name'),
-            'username' => $request->get('username'),
-            'password' => $request->get('password'),
-            'level' => $request->get('level')
-        ]);
-        $contact->save();
-        return redirect('/user')->with('success', 'Contact saved!');
+        //
     }
 
     /**

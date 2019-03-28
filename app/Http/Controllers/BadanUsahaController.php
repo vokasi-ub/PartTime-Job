@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\BadanUsahaModel;
 
 class BadanUsahaController extends Controller
 {
@@ -14,7 +16,8 @@ class BadanUsahaController extends Controller
     public function index()
     {
         $table = "Tabel Badan Usaha";
-        return view('pages.badan-usaha.badanusaha', compact('table'));
+        $data_post = BadanUsahaModel::all();
+        return view('pages.badan-usaha.badanusaha', compact('table', 'data_post'));
     }
 
     /**
@@ -24,7 +27,8 @@ class BadanUsahaController extends Controller
      */
     public function create()
     {
-        //
+        $table = "Tambah Badan Usaha"; 
+        return view("pages.badan-usaha.v_add_badanusaha", compact('table'));
     }
 
     /**
@@ -35,7 +39,18 @@ class BadanUsahaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new \App\BadanUsahaModel;
+
+        $post->nama_Badanusaha = $request->nama_BadanUsaha;
+        $post->alamat = $request->alamat;
+        $post->nomor_Telp = $request->nomor_Telp;
+        $post->website = $request->website;
+        $post->tgl_Berdiri = $request->tgl_Berdiri;
+        $post->email = $request->email;
+        $post->social_Media = $request->social_Media;
+
+        $post->save();
+        return redirect('badan-usaha');
     }
 
     /**

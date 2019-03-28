@@ -44,22 +44,29 @@
                     <a class="dropdown-item notification__all text-center" href="#"> View all Notifications </a>
                   </div>
                 </li>
+
+
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img class="user-avatar rounded-circle mr-2" src="{{ asset('assets/images/avatars/0.jpg') }}" alt="User Avatar">
-                    <span class="d-none d-md-inline-block">Sierra Brooks</span>
+                    <span class="d-none d-md-inline-block">Welcome User</span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-small">
-                    <a class="dropdown-item" href="user-profile-lite.html">
-                      <i class="material-icons">&#xE7FD;</i> Profile</a>
-                    <a class="dropdown-item" href="components-blog-posts.html">
-                      <i class="material-icons">vertical_split</i> Blog Posts</a>
-                    <a class="dropdown-item" href="add-new-post.html">
-                      <i class="material-icons">note_add</i> Add New Post</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger" href="#">
-                      <i class="material-icons text-danger">&#xE879;</i> Logout </a>
+                  <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();">
+                           {{ __('Logout') }}
+                      </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+                <li class="nav-item dropdown">
+                <a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                   
                   </div>
+                  </a>
                 </li>
               </ul>
               <nav class="nav">

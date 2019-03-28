@@ -11,46 +11,40 @@
                       <thead class="bg-light">
                         <tr>
                           <th scope="col" class="border-0">#</th>
-                          <th scope="col" class="border-0">First Name</th>
-                          <th scope="col" class="border-0">Last Name</th>
-                          <th scope="col" class="border-0">Country</th>
-                          <th scope="col" class="border-0">City</th>
-                          <th scope="col" class="border-0">Phone</th>
+                          <th scope="col" class="border-0">Nama Instansi</th>
+                          <th scope="col" class="border-0">Alamat</th>
+                          <th scope="col" class="border-0">No. Telp</th>
+                          <th scope="col" class="border-0">Website</th>
+                          <th scope="col" class="border-0">Tgl_Berdiri</th>
+                          <th scope="col" class="border-0">Email</th>
+                          <th scope="col" class="border-0">Sosmed</th>
+                          <th scope="col" class="border-0">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>Ali</td>
-                          <td>Kerry</td>
-                          <td>Russian Federation</td>
-                          <td>Gdańsk</td>
-                          <td>107-0339</td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Clark</td>
-                          <td>Angela</td>
-                          <td>Estonia</td>
-                          <td>Borghetto di Vara</td>
-                          <td>1-660-850-1647</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>Jerry</td>
-                          <td>Nathan</td>
-                          <td>Cyprus</td>
-                          <td>Braunau am Inn</td>
-                          <td>214-4225</td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>Colt</td>
-                          <td>Angela</td>
-                          <td>Liberia</td>
-                          <td>Bad Hersfeld</td>
-                          <td>1-848-473-7416</td>
-                        </tr>
+                      <?php $nomor = 0; ?>
+        				    	@foreach($data_post as $instansi)
+							        <?php $nomor++ ; ?>
+                      <tr>
+                        <td>{{$nomor}}</td>
+                        <td>{{$instansi->nama_BadanUsaha}}</td>
+                        <td>{{$instansi->alamat}}</td>
+                        <td>{{$instansi->nomor_telp}}</td>
+                        <td>{{$instansi->website}}</td>
+                        <td>{{$instansi->tgl_Berdiri}}</td>
+                        <td>{{$instansi->email}}</td>
+                        <td>{{$instansi->social_Media}}</td>
+                        <td>
+                              <a class="btn btn-warning btn-sm" href="{{ route('badan-usaha.edit', $instansi->id_BadanUsaha) }}">Edit</a>
+
+                              <form action="{{ route('badan-usaha.destroy', $instansi->id_BadanUsaha) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm">Hapus</button>
+                              </form>
+                        </td>
+							      	</tr>
+        					     @endforeach                      
                       </tbody>
                     </table>
                   </div>

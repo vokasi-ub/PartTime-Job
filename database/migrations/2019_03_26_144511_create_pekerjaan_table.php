@@ -16,10 +16,8 @@ class CreatePekerjaanTable extends Migration
         Schema::create('pekerjaan', function (Blueprint $table) {
             $table->bigIncrements('id_Pekerjaan');
             $table->integer('id_BadanUsaha');
-            $table->string('nama_BadanUsaha', 50);
-            $table->string('alamat', 50);
             $table->string('posisi', 50);
-            $table->string('paruh_Waktu', 10);
+            $table->string('jam_Kerja', 10);
             $table->text('persyaratan');
             $table->timestamps();
         });
