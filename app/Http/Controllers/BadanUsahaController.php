@@ -8,15 +8,22 @@ use App\BadanUsahaModel;
 
 class BadanUsahaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $table = "Tabel Badan Usaha";
-        $data_post = BadanUsahaModel::all();
+        $data_post = BadanUsahaModel::when($request->keyword, function ($query) use ($request) {
+            $query->where('nama_BadanUsaha', 'like', "%{$request->keyword}%");
+        })->get();
         return view('pages.badan-usaha.badanusaha', compact('table', 'data_post'));
     }
 
@@ -70,9 +77,11 @@ class BadanUsahaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_BadanUsaha)
     {
-        //
+        $post = BadanUsahaModel::find($id_BadanUsaha);
+        $table = "Edit Kategori Film";
+        return view('pages.badan-usaha.v_edit_badanusaha', compact('post', 'table'));
     }
 
     /**
@@ -82,9 +91,11 @@ class BadanUsahaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_BadanUsaha)
     {
-        //
+        $post = BadanUsahaModel::find($id_BadanUsaha);
+        $post->update($request->all());
+        return redirect('badan-usaha')->with('success', 'Kategori film telah diubah');
     }
 
     /**
@@ -93,8 +104,12 @@ class BadanUsahaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_BadanUsaha)
     {
-        //
+        $post = BadanUsahaModel::find($id_BadanUsaha);
+        $post->delete();
+
+        return redirect('badan-usaha')->with('success', 'Stock has been deleted Successfully');
     }
+
 }

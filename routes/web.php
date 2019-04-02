@@ -1,5 +1,6 @@
 <?php
-
+use App\Http\Middleware\isAdmin;
+use App\Http\Middleware\isUser;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,13 +14,28 @@
 
 Auth::routes();
 
+
+// Just for All
+
 Route::get('/', function () {
     return view('pages.front-end.content-frontend');
 });
+Route::get('/home', function () {
+    return view('pages.front-end.content-frontend');
+});
+Route::get('/lowongan', function () {
+    return view('pages.front-end.lowongan-frontend');
+});
 
-Route::resource('/user','UserController')->except(['create'])->middleware('auth');
-Route::resource('/badan-usaha','BadanUsahaController')->middleware('auth');
-Route::resource('/job','PekerjaanController');
-Route::resource('/pelamar','PelamarController');
+// Route::get('/instansi/{post}', 'InstansiController@index')->middleware(isUser::class);
+
+Route::resource('/user','UserController')->except(['create'])->middleware(isAdmin::class);
+Route::resource('/badan-usaha','BadanUsahaController')->middleware(isAdmin::class);
+Route::resource('/job','PekerjaanController')->middleware(isAdmin::class);
+Route::resource('/pelamar','PelamarController')->middleware(isAdmin::class);
+Route::resource('/instansi','InstansiController')->middleware(isUser::class);
+Route::resource('/jobHole','LowonganController')->middleware(isUser::class);
+Route::resource('/lamaran','LamaranController')->middleware(isUser::class);
+
 
 // Route::get('/home', 'HomeController@index')->name('home');

@@ -6,53 +6,56 @@
                   <div class="card-header border-bottom">
                     <h6 class="m-0">Active Users</h6>
                   </div>
+                  <div class="btn-group">
+                      <a class="ml-3 mb-2 mt-2 btn btn-success btn-sm" href="{{ route('job.create') }}">Tambah</a>
+                      </div>
                   <div class="card-body p-0 pb-3 text-center">
+                  <div class="table-responsive">
                     <table class="table mb-0">
+                    <form action="{{ url()->current() }}" class="sidebar">
+                      <div class="input-group w-25 float-right mr-3 mb-3">
+                        <input type="text" name="keyword" class="form-control" placeholder="Search...">
+                          <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                            </button>
+                          </span>
+                        </input>
+                      </div>
+                    </form>
                       <thead class="bg-light">
                         <tr>
                           <th scope="col" class="border-0">#</th>
-                          <th scope="col" class="border-0">First Name</th>
-                          <th scope="col" class="border-0">Last Name</th>
-                          <th scope="col" class="border-0">Country</th>
-                          <th scope="col" class="border-0">City</th>
-                          <th scope="col" class="border-0">Phone</th>
+                          <th scope="col" class="border-0">Perusahaan</th>
+                          <th scope="col" class="border-0">Posisi Kerja</th>
+                          <th scope="col" class="border-0">Waktu Kerja</th>
+                          <th scope="col" class="border-0">Persyaratan</th>
+                          <th scope="col" class="border-0">Action</th>
                         </tr>
                       </thead>
                       <tbody>
+                      <?php $nomor = 0; ?>
+                      @foreach($data as $job)
+                      <?php $nomor++ ; ?>
                         <tr>
-                          <td>1</td>
-                          <td>Ali</td>
-                          <td>Kerry</td>
-                          <td>Russian Federation</td>
-                          <td>Gdańsk</td>
-                          <td>107-0339</td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Clark</td>
-                          <td>Angela</td>
-                          <td>Estonia</td>
-                          <td>Borghetto di Vara</td>
-                          <td>1-660-850-1647</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>Jerry</td>
-                          <td>Nathan</td>
-                          <td>Cyprus</td>
-                          <td>Braunau am Inn</td>
-                          <td>214-4225</td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>Colt</td>
-                          <td>Angela</td>
-                          <td>Liberia</td>
-                          <td>Bad Hersfeld</td>
-                          <td>1-848-473-7416</td>
-                        </tr>
+                          <td>{{ $nomor }}</td>
+                          <td>{{ $job->nama_BadanUsaha }}</td>
+                          <td>{{ $job->posisi }}</td>
+                          <td>{{ $job->jam_Kerja }}</td>
+                          <td>{{ $job->persyaratan }}</td>
+                          <td>
+                              <a class="btn btn-warning btn-sm" href="{{ route('job.edit', $job->id_Pekerjaan) }}">Edit</a>
+
+                              <form action="{{ route('job.destroy', $job->id_Pekerjaan) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm">Hapus</button>
+                              </form>
+                          </td>
+							      	  </tr>
+                      @endforeach
                       </tbody>
                     </table>
+                    </div>
                   </div>
                 </div>
               </div>

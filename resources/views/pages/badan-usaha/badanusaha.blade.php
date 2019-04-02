@@ -2,12 +2,26 @@
 @section('konten')
 
               <div class="col">
-                <div class="card card-small mb-4">
+                <div class="card card-small mb-10">
                   <div class="card-header border-bottom">
                     <h6 class="m-0">Active Users</h6>
                   </div>
+                  <div class="btn-group">
+                      <a class="ml-3 mb-2 mt-2 btn btn-success btn-sm" href="{{ route('badan-usaha.create') }}">Tambah</a>
+                      </div>
                   <div class="card-body p-0 pb-3 text-center">
+                  <div class="table-responsive">
                     <table class="table mb-0">
+                    <form action="{{ url()->current() }}" class="sidebar">
+                      <div class="input-group w-25 float-right mr-3 mb-3">
+                        <input type="text" name="keyword" class="form-control" placeholder="Search...">
+                          <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                            </button>
+                          </span>
+                        </input>
+                      </div>
+                    </form>
                       <thead class="bg-light">
                         <tr>
                           <th scope="col" class="border-0">#</th>
@@ -47,6 +61,7 @@
         					     @endforeach                      
                       </tbody>
                     </table>
+                    </div>
                   </div>
                 </div>
               </div>
