@@ -22,6 +22,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\IsAdmin::class,
         \App\Http\Middleware\IsUser::class,
         \App\Http\Middleware\IsComplete::class,
+        \App\Http\Middleware\dontCreate::class,
     ];
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\PelamarModel;
+use App\BadanUsahaModel;
 use App\PekerjaanModel;
 use \Auth;
 use DB;
@@ -21,11 +22,21 @@ class PelamarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $data_pelamar = PelamarModel::all();
         $table = "Tabel Pelamar";
-        $data = DB::select('select * from badan_usaha inner join pekerjaan on badan_usaha.id_BadanUsaha = pekerjaan.id_BadanUsaha inner join lamaran on pekerjaan.id_Pekerjaan = lamaran.id_Pekerjaan');
+        
+        $data = BadanUsahaModel::join('pekerjaan', 'badan_usaha.id_BadanUsaha', '=', 'pekerjaan.id_BadanUsaha')
+        ->join('lamaran', 'pekerjaan.id_Pekerjaan', '=', 'lamaran.id_Pekerjaan')          
+        ->select('badan_usaha.*','pekerjaan.posisi', 'lamaran.*')
+        ->when($request->keyword, function ($query) use ($request) {
+        $query->where('nama', 'LIKE', "%{$request->keyword}%")
+                ->orWhere('nama_BadanUsaha', 'LIKE', "%{$request->keyword}%")
+                ->orWhere('posisi', 'LIKE', "%{$request->keyword}%");
+        })->paginate(8);
+        $data->appends($request->only('keyword'));
+
         return view('pages.pelamar.pelamar', compact('table', 'data_pelamar', 'data'));
     }
 
@@ -36,7 +47,6 @@ class PelamarController extends Controller
      */
     public function create()
     {
-    
         $table = "Tambah Lamaran";
         $data_job = DB::table("pekerjaan")->pluck("posisi","id_Pekerjaan");
         return view("pages.pelamar.v_add_pelamar", compact('table','data_job'));
@@ -52,8 +62,15 @@ class PelamarController extends Controller
     {
        $post = new \App\PelamarModel;
 
-        $post->id_Pekerjaan = $request->id_Pekerjaan;
-        $post->id_BadanUsaha = $request->id_BadanUsaha;
+       $id = $request->id_Pekerjaan;
+       $query = DB::select('select * from pekerjaan where id_Pekerjaan =?', [$id]);
+       
+        foreach($query as $qry){
+            $isi = $qry->id_BadanUsaha;
+        }
+
+        $post->id_Pekerjaan = $id;
+        $post->id_BadanUsaha = $isi;
         $post->nama = $request->nama;
         $post->email = $request->email;
         $post->phone = $request->phone;

@@ -14,7 +14,7 @@
                         <div class="col-sm-12 col-md-6">
                           <strong class="text-muted d-block mb-2">Forms</strong>
 
-                          <form method="post" role="form" action="{{ route('instansi.store') }}">                           
+                          <form method="post" role="form" action="{{ route('bio.store') }}">                           
                             
                             <div class="form-group">
                             @csrf                            

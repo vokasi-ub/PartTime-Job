@@ -1,50 +1,28 @@
 @extends('pages.dashboard-user')
 @section('konten')
 
-              <div class="col">
-                <div class="card card-small mb-10">
-                  <div class="card-header border-bottom">
-                    <h6 class="m-0">Active Users</h6>
-                  </div>
-
-                  <div class="card-body p-0 pb-3 text-center">
-                  <div class="table-responsive">
-                    <table class="table mb-0">
-                      <thead class="bg-light">
-                        <tr>
-                          <th scope="col" class="border-0">#</th>
-                          <th scope="col" class="border-0">Nama Instansi</th>
-                          <th scope="col" class="border-0">Alamat</th>
-                          <th scope="col" class="border-0">No. Telp</th>
-                          <th scope="col" class="border-0">Website</th>
-                          <th scope="col" class="border-0">Tgl_Berdiri</th>
-                          <th scope="col" class="border-0">Email</th>
-                          <th scope="col" class="border-0">Sosmed</th>
-                          <th scope="col" class="border-0">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      <?php $nomor = 0; ?>
-        				    	@foreach($data as $instansi)
-							        <?php $nomor++ ; ?>
-                      <tr>
-                        <td>{{$nomor}}</td>
-                        <td>{{$instansi->nama_BadanUsaha}}</td>
-                        <td>{{$instansi->alamat}}</td>
-                        <td>{{$instansi->nomor_telp}}</td>
-                        <td>{{$instansi->website}}</td>
-                        <td>{{$instansi->tgl_Berdiri}}</td>
-                        <td>{{$instansi->email}}</td>
-                        <td>{{$instansi->social_Media}}</td>
-                        <td>
-                              <a class="btn btn-warning btn-sm" href="{{ route('instansi.edit', $instansi->id_BadanUsaha) }}">Edit</a>
-                        </td>
-							      	</tr>
-        					     @endforeach                      
-                      </tbody>
-                    </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <div class="card col-md-10 ml-5 mb-5" style="width: 18rem;">
+  <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+  <div class="card-body bg-info">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="btn-group">
+        <a class="ml-3 mb-2 mt-2 btn btn-secondary btn-sm" href="{{ route('bio.create') }}">Tambah</a>
+    </div>
+  </div>
+  @foreach($data as $instansi)
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{$instansi->nama_BadanUsaha}}</li>
+    <li class="list-group-item">{{$instansi->alamat}}</li>
+    <li class="list-group-item">{{$instansi->nomor_telp}}</li>
+    <li class="list-group-item"><a href="{{$instansi->website}}">{{$instansi->website}}</a></li>
+    <li class="list-group-item">{{$instansi->tgl_Berdiri}}</li>
+    <li class="list-group-item">{{$instansi->email}}</li>
+  </ul>
+  <div class="card-body">
+    <a class="btn btn-warning btn-sm w-50" href="{{ route('instansi.edit', $instansi->id_BadanUsaha) }}">Edit</a>
+    <a class="btn btn-primary btn-sm w-25 float-right" href="https://www.instagram.com/mysupersoccer/">Contact</a>
+  </div>
+  @endforeach 
+</div>
 @endsection              

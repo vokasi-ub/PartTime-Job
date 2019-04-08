@@ -20,12 +20,20 @@ class PekerjaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $table = "Tabel Pekerjaan";
-        $data_job = PekerjaanModel::all();
-        $data = DB::select('select * from badan_usaha inner join pekerjaan on badan_usaha.id_BadanUsaha = pekerjaan.id_BadanUsaha');
-        return view('pages.pekerjaan.pekerjaan', compact('table','data_job', 'data'));
+        
+        $data = PekerjaanModel::join('badan_usaha', 'pekerjaan.id_BadanUsaha', '=', 'badan_usaha.id_BadanUsaha')          
+        ->select('pekerjaan.*','badan_usaha.nama_BadanUsaha')
+        ->when($request->keyword, function ($query) use ($request) {
+        $query->where('posisi', 'LIKE', "%{$request->keyword}%")
+                ->orWhere('nama_BadanUsaha', 'LIKE', "%{$request->keyword}%");
+        })->paginate(8);
+
+        $data->appends($request->only('keyword'));
+
+        return view('pages.pekerjaan.pekerjaan', compact('table', 'data'));
     }
 
     /**

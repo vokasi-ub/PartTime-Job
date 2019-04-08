@@ -11,11 +11,26 @@
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item p-3">
                       <div class="row">
-                          <strong class="text-muted d-block mb-2">Forms</strong>
 
                           <form method="post" action="{{ route('badan-usaha.update', $post->id_BadanUsaha) }}">
                           @method('PATCH')
                           @csrf
+
+                          <div class="form-group ml-3">
+                          <label for="exampleInputEmail1">Akun Tertaut</label>
+                          <select id="id_BadanUsaha" class="form-control" name="id_BadanUsaha">
+                            <option selected="selected" value=""> -- Pilih Akun Tertaut -- </option>
+                              <div class="form-group">
+                              @foreach($data as $instansi)
+                            <?php if($instansi->id == $post->id) { ?>
+                            <option selected="selected" value="{{ $instansi->id }}">{{ $instansi->name }} ( {{ $instansi->level }} )</option>
+                            <?php } else { ?>
+                            <option value="{{ $instansi->id }}">{{ $instansi->name }} ( {{ $instansi->level }} )</option>
+                            <?php } ?>
+                              @endforeach
+                              </div>
+                          <select>
+
                             <div class="form-group">
                             <label class="col-sm-12 col-form-label row">Nama Instansi</label>
                               <input type="text" class="form-control" name="nama_BadanUsaha" value="{{$post->nama_BadanUsaha}}" placeholder="Nama Instansi.."> </div>                          

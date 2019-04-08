@@ -28,7 +28,7 @@
       <nav class="main-nav float-right d-none d-lg-block">
         <ul>
           <li class="active"><a href="#intro">Home</a></li>
-          <li><a href="#about">Lowongan</a></li>
+          <li><a href="#about">Instansi</a></li>
           <li class="drop-down"><a href="#">Menu</a>
             <ul>
               <li><a href="" data-toggle="modal" data-target="#exampleModalScrollable">Registrasi Badan Usaha</a></li>
@@ -51,8 +51,8 @@
     <div class="container d-flex h-100">
       <div class="row justify-content-center align-self-center">
         <div class="col-md-6 intro-info order-md-first order-last">
-        </div>        
       </div>
+    </div>
     </div>
   </section><!-- #intro -->
 
@@ -69,12 +69,12 @@
           
 
         <div class="col">
-                <div class="card card-small mb-4">
+                <div class="card card-small mb-10">
                   <div class="card-header border-bottom">
-                    <h6 class="m-0">Share With Love</h6>
+                    <h6 class="m-0">Badan Usahanya</h6>
                   </div>
                   <div class="btn-group">
-                      <a class="ml-3 mb-2 mt-2 mr-3 btn btn-success btn-sm text-white" disabled>Daftar Lowongan Kerja</a>
+                      <a class="ml-3 mb-2 mt-2 btn btn-success btn-sm text-white" disabled>Tambah</a>
                       </div>
                   <div class="card-body p-0 pb-3 text-center">
                   <div class="table-responsive">
@@ -89,31 +89,35 @@
                         </input>
                       </div>
                     </form>
-                    <a class="btn btn-warning btn-sm text-dark float-left ml-3" data-toggle="modal" data-target="#exampleModalCenter">Ajukan Lamaran</a>
                       <thead class="bg-light">
                         <tr>
                           <th scope="col" class="border-0">#</th>
-                          <th scope="col" class="border-0">Perusahaan</th>
-                          <th scope="col" class="border-0">Posisi Kerja</th>
-                          <th scope="col" class="border-0">Waktu Kerja</th>
-                          <th scope="col" class="border-0">Persyaratan</th>
-                          <th scope="col" class="border-0">Action</th>
+                          <th scope="col" class="border-0">Nama Instansi</th>
+                          <th scope="col" class="border-0">Alamat</th>
+                          <th scope="col" class="border-0">No. Telp</th>
+                          <th scope="col" class="border-0">Website</th>
+                          <th scope="col" class="border-0">Tgl_Berdiri</th>
+                          <th scope="col" class="border-0">Email</th>
+                          <th scope="col" class="border-0">...</th>
                         </tr>
                       </thead>
                       <tbody>
                       <?php $nomor = 0; ?>
-                      @foreach($data as $job)
-                      <?php $nomor++ ; ?>
-                        <tr>
-                          <td>{{ $nomor }}</td>
-                          <td>{{ $job->nama_BadanUsaha }}</td>
-                          <td>{{ $job->posisi }}</td>
-                          <td>{{ $job->jam_Kerja }}</td>
-                          <td>{{ $job->persyaratan }}</td>
-                          <td>::                              
-                          </td>
-							      	  </tr>
-                      @endforeach
+        				    	@foreach($data_post as $instansi)
+							        <?php $nomor++ ; ?>
+                      <tr>
+                        <td>{{$nomor}}</td>
+                        <td>{{$instansi->nama_BadanUsaha}}</td>
+                        <td>{{$instansi->alamat}}</td>
+                        <td>{{$instansi->nomor_telp}}</td>
+                        <td>{{$instansi->website}}</td>
+                        <td>{{$instansi->tgl_Berdiri}}</td>
+                        <td>{{$instansi->email}}</td>
+                        <td>
+                              <a class="btn btn-warning btn-sm" href="#">Sosmednya</a>
+                        </td>
+							      	</tr>
+        					     @endforeach                      
                       </tbody>
                     </table>
                     </div>
@@ -130,8 +134,10 @@
 
     </main>
 
-    @include('layouts.footer-fronend')
-
+  <!--==========================
+    Footer
+  ============================-->
+  @include('layouts.footer-fronend')
 
   <!-- Modal Register User --><!-- Modal Register User --><!-- Modal Register User -->
   <!-- Modal Register User --><!-- Modal Register User --><!-- Modal Register User -->
@@ -214,83 +220,6 @@
       </div>
       </form>
       
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
- <!-- Modal Register User --><!-- Modal Register User --><!-- Modal Register User -->
-
-
- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Isikan Data Valid gengs</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <form method="post" role="form" action="{{ action('FrontendController@createApply') }}" enctype="multipart/form-data">
-      <div class="modal-body">                          
-                          <div class="form-group">
-                          <label for="exampleInputEmail1">Nama Pekerjaan</label>
-                          <select id="job" class="form-control input-lg dynamic" data-dependent="id_Pekerjaan" name="id_Pekerjaan">
-                            <option selected="selected" value=""> -- Pilih Pekerjaan -- </option>
-                              <div class="form-group">  
-                              @foreach($data as $key)                            
-                            <option value="{{ $key->id_Pekerjaan }}">{{ $key->nama_BadanUsaha }} || {{ $key->posisi }}</option>
-                              @endforeach                                                          
-                            </div>                                                                                                                       
-                          <select>
-
-                            {{ csrf_field() }}                                       
-
-                          <div class="form-group">            
-                            <label class="col-sm-12 col-form-label row">Nama Pelamar</label>
-                              <input type="text" class="form-control" name="nama" placeholder="Nama Instansi.."> </div>
-
-                          <div class="form-group">            
-                            <label class="col-sm-12 col-form-label row">Email</label>
-                              <input type="text" class="form-control" name="email" placeholder="Nama Instansi.."> </div>
-
-                          <div class="form-group">            
-                            <label class="col-sm-12 col-form-label row">No. Telp</label>
-                              <input type="text" class="form-control" name="phone" placeholder="Nama Instansi.."> </div>
-
-                          <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Tempat Tinggal</label>
-                            <textarea class="form-control" name="alamat" rows="5"></textarea>
-                          </div>
-
-                          <div class="form-group">            
-                            <label class="col-sm-8 col-form-label row">Foto</label>
-                              <input type="file" class="form-control" name="foto" placeholder="Nama Instansi.."> </div>
-
-                          <div class="form-group">            
-                            <label class="col-sm-8 col-form-label row">KTP</label>
-                              <input type="file" class="form-control" name="ktp" placeholder="Nama Instansi.."> </div>
-
-                          <div class="form-group">            
-                            <label class="col-sm-8 col-form-label row">SKCK</label>
-                              <input type="file" class="form-control" name="skck" placeholder="Nama Instansi.."> </div>
-
-                          <div class="form-group">            
-                            <label class="col-sm-8 col-form-label row">KTM</label>
-                              <input type="file" class="form-control" name="ktm" placeholder="Nama Instansi.."> </div>
-
-                          <div class="form-group">            
-                            <label class="col-sm-8 col-form-label row">SK. Sehat</label>
-                              <input type="file" class="form-control" name="sks" placeholder="Nama Instansi.."> </div>                          
-
-                            <button type="submit" class="btn btn-primary mb-2">Simpan</button>                        
-
-      </div>
-      </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>

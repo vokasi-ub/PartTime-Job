@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use \Auth;
 use App\BadanUsahaModel;
-use App\User;
 
-class BadanUsahaController extends Controller
+class CreateInstansiController extends Controller
 {
     public function __construct()
     {
@@ -19,13 +19,9 @@ class BadanUsahaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $table = "Tabel Badan Usaha";
-        $data_post = BadanUsahaModel::when($request->keyword, function ($query) use ($request) {
-            $query->where('nama_BadanUsaha', 'like', "%{$request->keyword}%");
-        })->get();
-        return view('pages.badan-usaha.badanusaha', compact('table', 'data_post'));
+        //
     }
 
     /**
@@ -35,9 +31,9 @@ class BadanUsahaController extends Controller
      */
     public function create()
     {
-        $table = "Tambah Badan Usaha"; 
-        $data = User::all();
-        return view("pages.badan-usaha.v_add_badanusaha", compact('table','data'));
+        $post = BadanUsahaModel::all();
+        $table = "Buat Profil Badan Usaha [INSTANSI]"; 
+        return view("pages.back-end.badan-usaha.v_add_badanusaha", compact('table','post'));
     }
 
     /**
@@ -49,7 +45,9 @@ class BadanUsahaController extends Controller
     public function store(Request $request)
     {
         $post = new \App\BadanUsahaModel;
+        $id = \Auth::user()->id;
 
+        $post->id = $id;
         $post->nama_Badanusaha = $request->nama_BadanUsaha;
         $post->alamat = $request->alamat;
         $post->nomor_Telp = $request->nomor_Telp;
@@ -59,7 +57,7 @@ class BadanUsahaController extends Controller
         $post->social_Media = $request->social_Media;
 
         $post->save();
-        return redirect('badan-usaha');
+        return redirect('instansi');
     }
 
     /**
@@ -79,12 +77,9 @@ class BadanUsahaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_BadanUsaha)
+    public function edit($id)
     {
-        $post = BadanUsahaModel::find($id_BadanUsaha);
-        $data = User::all();
-        $table = "Edit Kategori Film";
-        return view('pages.badan-usaha.v_edit_badanusaha', compact('post', 'table', 'data'));
+        //
     }
 
     /**
@@ -94,11 +89,9 @@ class BadanUsahaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_BadanUsaha)
+    public function update(Request $request, $id)
     {
-        $post = BadanUsahaModel::find($id_BadanUsaha);
-        $post->update($request->all());
-        return redirect('badan-usaha')->with('success', 'Kategori film telah diubah');
+        //
     }
 
     /**
@@ -107,12 +100,8 @@ class BadanUsahaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id_BadanUsaha)
+    public function destroy($id)
     {
-        $post = BadanUsahaModel::find($id_BadanUsaha);
-        $post->delete();
-
-        return redirect('badan-usaha')->with('success', 'Stock has been deleted Successfully');
+        //
     }
-
 }

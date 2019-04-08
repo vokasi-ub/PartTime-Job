@@ -27,6 +27,7 @@
                             </div>                                                                                                                       
                           <select>
 
+
                             {{ csrf_field() }}                                       
 
                           <div class="form-group">            
@@ -74,31 +75,4 @@
                   </ul>
                 </div>
               </div>
-
-
-<script type="text/javascript">
-    $('#job').on('change',function(){
-    var stateID = $(this).val();    
-    if(stateID){
-        $.ajax({
-           type:"GET",
-           url:"{{url('pelamar/fetch')}}?id_BadanUsaha="+stateID,
-           success:function(res){               
-            if(res){
-                $("#instansi").innerHTML = "Kosong";
-                $.each(res,function(key,value){
-                    $("#instansi").append('<option value="'+key+'">'+value+'</option>');
-                });
-           
-            }else{
-               $("#instansi").innerHTML = "Kosong";
-            }
-           }
-        });
-    }else{
-        $("#instansi").innerHTML = "Kosong";
-    }
-        
-   });
-</script>
 @endsection

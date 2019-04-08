@@ -45,7 +45,8 @@
                           <td><img src="{{ URL::to('/')}}/images/{{ $lamar->ktm }}" class="img-tumbnail" width="75" /></td>
                           <td><img src="{{ URL::to('/')}}/images/{{ $lamar->sks }}" class="img-tumbnail" width="75" /></td>
                           <td>
-                              <a href="{{ route('lamaran.show', $lamar->id_Lamaran) }}" class="btn btn-primary">Show</a>              
+                              <a href="{{ route('lamaran.show', $lamar->id_Lamaran) }}" class="btn btn-primary mb-2">Show</a> 
+                              <a href="{{ route('lamaran.edit', $lamar->id_Lamaran) }}" class="btn btn-success">Email him/her</a>              
                           </td>
 							      	  </tr>
                       @endforeach

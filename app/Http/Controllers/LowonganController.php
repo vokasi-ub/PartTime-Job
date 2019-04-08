@@ -21,12 +21,22 @@ class LowonganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id = \Auth::user()->id;
         $table = "Tabel Pekerjaan [INSTANSI]";
         $data_job = PekerjaanModel::all();
-        $data = DB::select('select * from pekerjaan inner join badan_usaha on pekerjaan.id_BadanUsaha = badan_usaha.id_BadanUsaha where badan_usaha.id =?',[$id]);
+        $model = new PekerjaanModel();
+        $data = $model->join('badan_usaha', function ($join) use ($id, $request){
+            $join->on('pekerjaan.id_BadanUsaha', '=', 'badan_usaha.id_BadanUsaha')
+            ->where('badan_usaha.id', '=',$id)
+            ->select('pekerjaan.*','badan_usaha.nama_BadanUsaha')         
+            ->when($request->keyword, function ($query) use ($request) {
+            $query->where('posisi', 'LIKE', "%{$request->keyword}%")
+                    ->orWhere('nama_BadanUsaha', 'LIKE', "%{$request->keyword}%");
+            });
+        })->paginate(8);
+        $data->appends($request->only('keyword'));
 
         return view('pages.back-end.pekerjaan.pekerjaan', compact('table','data_job','data'));
     }
@@ -38,8 +48,9 @@ class LowonganController extends Controller
      */
     public function create()
     {
+        $id = \Auth::user()->id;
         $table = "Tambah Pekerjaan [INSTANSI]"; 
-        $data_instansi = BadanUsahaModel::get();
+        $data_instansi = DB::select('select * from badan_usaha where id =?', [$id]);
         return view("pages.back-end.pekerjaan.v_add_pekerjaan", compact('table', 'data_instansi'));
     }
 
@@ -94,7 +105,7 @@ class LowonganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_Pekerjaan)
     {
         $post = PekerjaanModel::find($id_Pekerjaan);
         $post->update($request->all());

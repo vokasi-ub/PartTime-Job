@@ -8,7 +8,7 @@ class BadanUsahaModel extends Model
 {
     protected $table = "badan_usaha";
     protected $primaryKey = 'id_BadanUsaha';
-    protected $fillable = ['nama_BadanUsaha', 'alamat', 'nomor_telp', 'website', 'tgl_Berdiri', 'email', 'social_Media'];
+    protected $fillable = ['id','nama_BadanUsaha', 'alamat', 'nomor_telp', 'website', 'tgl_Berdiri', 'email', 'social_Media'];
 
     public function pekerjaan()
     {

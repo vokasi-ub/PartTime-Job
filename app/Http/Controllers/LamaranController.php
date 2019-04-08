@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests;
 use App\PelamarModel;
 use \Auth;
@@ -68,9 +69,12 @@ class LamaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_Lamaran)
     {
-        //
+        $table = "Kirim Email Pelamar [INSTANSI]";
+        $data_pelamar = PelamarModel::find($id_Lamaran);
+
+        return view('pages.back-end.pelamar.v_email_pelamar', compact('table','data_pelamar'));
     }
 
     /**
@@ -80,9 +84,10 @@ class LamaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_Lamaran)
     {
         //
+
     }
 
     /**
@@ -94,5 +99,25 @@ class LamaranController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function emailHim(Request $request){
+        $email = $request->email;
+        $data = array(
+            'nama' => $request->nama,
+            'email_body' => $request->email_body
+        );
+
+        Mail::send('email_template',$data, function($mail) use($email) {
+            $mail->to($email, 'no-reply')
+                    ->subject("[ WAWANCARA - PartTime-Job ]");
+            $mail->from('2kusumaa@gmail.com', 'PartTime-Job');
+        });
+
+        if(Mail::failures()){
+            return "Gagal Mengirim Email";
+        }
+
+        return redirect('lamaran');
     }
 }

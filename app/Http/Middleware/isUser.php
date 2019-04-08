@@ -15,6 +15,7 @@ class isUser
      */
     public function handle($request, Closure $next)
     {
+
         if(auth()->check() && $request->user()->level == 'admin') {
             return redirect()->guest('/user');
         }

@@ -15,9 +15,20 @@
                           <strong class="text-muted d-block mb-2">Forms</strong>
 
                           <form method="post" role="form" action="{{ route('badan-usaha.store') }}">
+           
+                          <div class="form-group">
+                          @csrf
+                          <label for="exampleInputEmail1">Akun Tertaut</label>
+                          <select id="id_BadanUsaha" class="form-control" name="id_BadanUsaha">
+                            <option selected="selected" value=""> -- Pilih Akun Tertaut -- </option>
+                              <div class="form-group">
+                              @foreach($data as $instansi)
+                            <option value="{{ $instansi->id }}">{{ $instansi->name }} ( {{ $instansi->level }} )</option>
+                              @endforeach
+                              </div>
+                          <select>
 
-                            <div class="form-group">
-                            @csrf
+                            <div class="form-group">                            
                             <label class="col-sm-12 col-form-label row">Nama Instansi</label>
                               <input type="text" class="form-control" name="nama_BadanUsaha" placeholder="Nama Instansi.."> </div>                          
 

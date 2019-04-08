@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 use App\BadanUsahaModel;
 use Closure;
 
-class isComplete
+class dontCreate
 {
     /**
      * Handle an incoming request.
@@ -15,11 +15,10 @@ class isComplete
      */
     public function handle($request, Closure $next)
     {
-
         $id = $request->route('id');
         $result = BadanUsahaModel::where('id', $id)->first();
 
-        if(auth()->check() && $request->user()->level == 'instansi' && $result != null) {
+        if(auth()->check() && $request->user()->level == 'instansi' && $result == null) {
 
                 return redirect()->guest('/instansi');
             

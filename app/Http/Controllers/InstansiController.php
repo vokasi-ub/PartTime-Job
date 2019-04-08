@@ -19,12 +19,13 @@ class InstansiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id = \Auth::user()->id;
         $post = BadanUsahaModel::all();
         $table = "Profil [INSTANSI]";
         $data = DB::select('select * from badan_usaha where id =?',[$id]);
+
         return view('pages.back-end.badan-usaha.badanusaha', compact('table', 'post','data'));
     }
 
@@ -35,9 +36,7 @@ class InstansiController extends Controller
      */
     public function create()
     {
-        $post = BadanUsahaModel::all();
-        $table = "Buat Profil Badan Usaha [INSTANSI]"; 
-        return view("pages.back-end.badan-usaha.v_add_badanusaha", compact('table','post'));
+        //
     }
 
     /**
@@ -48,20 +47,7 @@ class InstansiController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new \App\BadanUsahaModel;
-        $id = \Auth::user()->id;
-
-        $post->id = $id;
-        $post->nama_Badanusaha = $request->nama_BadanUsaha;
-        $post->alamat = $request->alamat;
-        $post->nomor_Telp = $request->nomor_Telp;
-        $post->website = $request->website;
-        $post->tgl_Berdiri = $request->tgl_Berdiri;
-        $post->email = $request->email;
-        $post->social_Media = $request->social_Media;
-
-        $post->save();
-        return redirect('instansi');
+        //
     }
 
     /**
