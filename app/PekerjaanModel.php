@@ -12,12 +12,12 @@ class PekerjaanModel extends Model
 
     public function badanUsaha()
     {
-        return $this->belongsTo('App\BadanUsahaModel', 'id_BadanUsaha');
+        return $this->belongsTo('App\BadanUsahaModel', 'id_BadanUsaha','id_BadanUsaha');
     }
 
     public function pelamar()
     {
-        return $this->hasMany('App\PelamarModel', 'id_Pekerjaan');
+        return $this->hasMany('App\PelamarModel', 'id_Pekerjaan', 'id_Pekerjaan');
     }
 
 }

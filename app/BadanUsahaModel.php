@@ -12,7 +12,12 @@ class BadanUsahaModel extends Model
 
     public function pekerjaan()
     {
-        return $this->hasMany('App\PekerjaanModel', 'id_BadanUsaha');
+        return $this->hasMany('App\PekerjaanModel', 'id_BadanUsaha', 'id_BadanUsaha');
+    }
+
+    public function pelamar()
+    {
+        return $this->hasMany('App\PelamarModel', 'id_BadanUsaha', 'id_BadanUsaha');
     }
 
 }

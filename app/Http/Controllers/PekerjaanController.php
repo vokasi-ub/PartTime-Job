@@ -23,15 +23,9 @@ class PekerjaanController extends Controller
     public function index(Request $request)
     {
         $table = "Tabel Pekerjaan";
-        
-        $data = PekerjaanModel::join('badan_usaha', 'pekerjaan.id_BadanUsaha', '=', 'badan_usaha.id_BadanUsaha')          
-        ->select('pekerjaan.*','badan_usaha.nama_BadanUsaha')
-        ->when($request->keyword, function ($query) use ($request) {
-        $query->where('posisi', 'LIKE', "%{$request->keyword}%")
-                ->orWhere('nama_BadanUsaha', 'LIKE', "%{$request->keyword}%");
-        })->paginate(8);
-
-        $data->appends($request->only('keyword'));
+        $data = PekerjaanModel::with(['badanUsaha','pelamar'])->when($request->keyword, function ($query) use ($request) {
+            $query->where('posisi', 'like', "%{$request->keyword}%");
+        })->get();;
 
         return view('pages.pekerjaan.pekerjaan', compact('table', 'data'));
     }

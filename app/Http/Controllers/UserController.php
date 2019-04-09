@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\User; 
+use App\BadanUsahaModel;
+use App\PekerjaanModel;
+use App\PelamarModel; 
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -18,7 +21,11 @@ class UserController extends Controller
     public function index()
     {
         $table = "Profil User";
-        return view('pages.user.content-dashboard', compact('table'));
+        $jml_Instansi = BadanUsahaModel::count();
+        $jml_Pekerjaan = PekerjaanModel::count();
+        $jml_Pelamar = PelamarModel::count();
+        $jml_Akun = User::count();
+        return view('pages.user.content-dashboard', compact('table','jml_Instansi','jml_Pekerjaan','jml_Pelamar','jml_Akun'));
     }
 
     /**

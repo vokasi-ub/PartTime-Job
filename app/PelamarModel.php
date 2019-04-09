@@ -12,6 +12,11 @@ class PelamarModel extends Model
 
     public function pekerjaan()
     {
-        return $this->belongsTo('App\PekerjaanModel', 'id_Pekerjaan');
+        return $this->belongsTo('App\PekerjaanModel', 'id_Pekerjaan', 'id_Pekerjaan');
+    }
+
+    public function badanUsaha()
+    {
+        return $this->belongsTo('App\BadanUsahaModel', 'id_BadanUsaha','id_BadanUsaha');
     }
 }

@@ -22,11 +22,10 @@ class InstansiController extends Controller
     public function index(Request $request)
     {
         $id = \Auth::user()->id;
-        $post = BadanUsahaModel::all();
         $table = "Profil [INSTANSI]";
-        $data = DB::select('select * from badan_usaha where id =?',[$id]);
+        $data = BadanUsahaModel::where('id', $id)->get();
 
-        return view('pages.back-end.badan-usaha.badanusaha', compact('table', 'post','data'));
+        return view('pages.back-end.badan-usaha.badanusaha', compact('table','data'));
     }
 
     /**

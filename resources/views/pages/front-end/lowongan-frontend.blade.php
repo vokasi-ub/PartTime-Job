@@ -102,11 +102,11 @@
                       </thead>
                       <tbody>
                       <?php $nomor = 0; ?>
-                      @foreach($data as $job)
+                      @foreach($data as $key=>$job)
                       <?php $nomor++ ; ?>
                         <tr>
                           <td>{{ $nomor }}</td>
-                          <td>{{ $job->nama_BadanUsaha }}</td>
+                          <td>{{ $job->badanUsaha->nama_BadanUsaha }}</td>
                           <td>{{ $job->posisi }}</td>
                           <td>{{ $job->jam_Kerja }}</td>
                           <td>{{ $job->persyaratan }}</td>
@@ -242,8 +242,8 @@
                           <select id="job" class="form-control input-lg dynamic" data-dependent="id_Pekerjaan" name="id_Pekerjaan">
                             <option selected="selected" value=""> -- Pilih Pekerjaan -- </option>
                               <div class="form-group">  
-                              @foreach($data as $key)                            
-                            <option value="{{ $key->id_Pekerjaan }}">{{ $key->nama_BadanUsaha }} || {{ $key->posisi }}</option>
+                              @foreach($data as $yek=>$key)                            
+                            <option value="{{ $key->id_Pekerjaan }}">{{ $key->badanUsaha->nama_BadanUsaha }} || {{ $key->posisi }}</option>
                               @endforeach                                                          
                             </div>                                                                                                                       
                           <select>

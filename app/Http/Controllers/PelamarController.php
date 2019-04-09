@@ -24,20 +24,12 @@ class PelamarController extends Controller
      */
     public function index(Request $request)
     {
-        $data_pelamar = PelamarModel::all();
+        $data_pelamar = PelamarModel::with(['badanUsaha','pekerjaan'])->when($request->keyword, function ($query) use ($request) {
+            $query->where('nama', 'like', "%{$request->keyword}%");
+        })->get();
         $table = "Tabel Pelamar";
-        
-        $data = BadanUsahaModel::join('pekerjaan', 'badan_usaha.id_BadanUsaha', '=', 'pekerjaan.id_BadanUsaha')
-        ->join('lamaran', 'pekerjaan.id_Pekerjaan', '=', 'lamaran.id_Pekerjaan')          
-        ->select('badan_usaha.*','pekerjaan.posisi', 'lamaran.*')
-        ->when($request->keyword, function ($query) use ($request) {
-        $query->where('nama', 'LIKE', "%{$request->keyword}%")
-                ->orWhere('nama_BadanUsaha', 'LIKE', "%{$request->keyword}%")
-                ->orWhere('posisi', 'LIKE', "%{$request->keyword}%");
-        })->paginate(8);
-        $data->appends($request->only('keyword'));
 
-        return view('pages.pelamar.pelamar', compact('table', 'data_pelamar', 'data'));
+        return view('pages.pelamar.pelamar', compact('table', 'data_pelamar'));
     }
 
     /**

@@ -10,7 +10,7 @@
         <a class="ml-3 mb-2 mt-2 btn btn-secondary btn-sm" href="{{ route('bio.create') }}">Tambah</a>
     </div>
   </div>
-  @foreach($data as $instansi)
+  @foreach($data as $key=>$instansi)
   <ul class="list-group list-group-flush">
     <li class="list-group-item">{{$instansi->nama_BadanUsaha}}</li>
     <li class="list-group-item">{{$instansi->alamat}}</li>

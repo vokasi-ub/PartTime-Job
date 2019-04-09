@@ -43,26 +43,26 @@
                       </thead>
                       <tbody>
                       <?php $nomor = 0; ?>
-                      @foreach($data as $lamar)
+                      @foreach($data_pelamar as $lamar=>$key)
                       <?php $nomor++ ; ?>
                         <tr>
                           <td>{{ $nomor }}</td>
-                          <td>{{ $lamar->posisi}}</td>
-                          <td>{{ $lamar->nama_BadanUsaha }}</td>
-                          <td>{{ $lamar->nama }}</td>
-                          <td>{{ $lamar->email }}</td>
-                          <td>{{ $lamar->phone }}</td>
-                          <td>{{ $lamar->alamat }}</td>
-                          <td><img src="{{ URL::to('/')}}/images/{{ $lamar->foto }}" class="img-tumbnail" width="75" /></td>
-                          <td><img src="{{ URL::to('/')}}/images/{{ $lamar->ktp }}" class="img-tumbnail" width="75" /></td>
-                          <td><img src="{{ URL::to('/')}}/images/{{ $lamar->skck }}" class="img-tumbnail" width="75" /></td>
-                          <td><img src="{{ URL::to('/')}}/images/{{ $lamar->ktm }}" class="img-tumbnail" width="75" /></td>
-                          <td><img src="{{ URL::to('/')}}/images/{{ $lamar->sks }}" class="img-tumbnail" width="75" /></td>
+                          <td>{{ $key->pekerjaan->posisi }}</td>
+                          <td>{{ $key->badanUsaha->nama_BadanUsaha }}</td>
+                          <td>{{ $key->nama }}</td>
+                          <td>{{ $key->email }}</td>
+                          <td>{{ $key->phone }}</td>
+                          <td>{{ $key->alamat }}</td>
+                          <td><img src="{{ URL::to('/')}}/images/{{ $key->foto }}" class="img-tumbnail" width="75" /></td>
+                          <td><img src="{{ URL::to('/')}}/images/{{ $key->ktp }}" class="img-tumbnail" width="75" /></td>
+                          <td><img src="{{ URL::to('/')}}/images/{{ $key->skck }}" class="img-tumbnail" width="75" /></td>
+                          <td><img src="{{ URL::to('/')}}/images/{{ $key->ktm }}" class="img-tumbnail" width="75" /></td>
+                          <td><img src="{{ URL::to('/')}}/images/{{ $key->sks }}" class="img-tumbnail" width="75" /></td>
                           <td>
-                              <a href="{{ route('pelamar.show', $lamar->id_Lamaran) }}" class="btn btn-primary">Show</a>
-                              <a class="btn btn-warning btn-sm" href="{{ route('pelamar.edit', $lamar->id_Lamaran) }}">Edit</a>
+                              <a href="{{ route('pelamar.show', $key->id_Lamaran) }}" class="btn btn-primary">Show</a>
+                              <a class="btn btn-warning btn-sm" href="{{ route('pelamar.edit', $key->id_Lamaran) }}">Edit</a>
 
-                              <form action="{{ route('pelamar.destroy', $lamar->id_Lamaran) }}" method="post">
+                              <form action="{{ route('pelamar.destroy', $key->id_Lamaran) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm">Hapus</button>

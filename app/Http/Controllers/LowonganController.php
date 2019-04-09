@@ -25,20 +25,11 @@ class LowonganController extends Controller
     {
         $id = \Auth::user()->id;
         $table = "Tabel Pekerjaan [INSTANSI]";
-        $data_job = PekerjaanModel::all();
-        $model = new PekerjaanModel();
-        $data = $model->join('badan_usaha', function ($join) use ($id, $request){
-            $join->on('pekerjaan.id_BadanUsaha', '=', 'badan_usaha.id_BadanUsaha')
-            ->where('badan_usaha.id', '=',$id)
-            ->select('pekerjaan.*','badan_usaha.nama_BadanUsaha')         
-            ->when($request->keyword, function ($query) use ($request) {
-            $query->where('posisi', 'LIKE', "%{$request->keyword}%")
-                    ->orWhere('nama_BadanUsaha', 'LIKE', "%{$request->keyword}%");
-            });
-        })->paginate(8);
-        $data->appends($request->only('keyword'));
+        $data = PekerjaanModel::with(['badanUsaha','pelamar'])->when($request->keyword, function ($query) use ($request) {
+            $query->where('posisi', 'like', "%{$request->keyword}%");
+        })->get()->where('badanUsaha.id',$id);
 
-        return view('pages.back-end.pekerjaan.pekerjaan', compact('table','data_job','data'));
+        return view('pages.back-end.pekerjaan.pekerjaan', compact('table','data'));
     }
 
     /**

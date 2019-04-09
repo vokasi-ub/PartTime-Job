@@ -10,6 +10,16 @@
                   <div class="card-body p-0 pb-3 text-center">
                   <div class="table-responsive">  
                     <table class="table mb-0">
+                    <form action="{{ url()->current() }}" class="sidebar">
+                      <div class="input-group w-25 float-right mr-3 mb-3">
+                        <input type="text" name="keyword" class="form-control" placeholder="Search...">
+                          <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                            </button>
+                          </span>
+                        </input>
+                      </div>
+                    </form>
                       <thead class="bg-light">
                         <tr>
                           <th scope="col" class="border-0">#</th>
@@ -33,8 +43,8 @@
                       <?php $nomor++ ; ?>
                         <tr>
                           <td>{{ $nomor }}</td>
-                          <td>{{ $lamar->posisi }}</td>
-                          <td>{{ $lamar->nama_BadanUsaha }}</td>
+                          <td>{{ $lamar->pekerjaan->posisi }}</td>
+                          <td>{{ $lamar->badanUsaha->nama_BadanUsaha }}</td>
                           <td>{{ $lamar->nama }}</td>
                           <td>{{ $lamar->email }}</td>
                           <td>{{ $lamar->phone }}</td>

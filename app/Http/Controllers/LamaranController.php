@@ -20,13 +20,16 @@ class LamaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id = \Auth::user()->id;
-        $data = DB::select('select * from badan_usaha inner join pekerjaan on badan_usaha.id_BadanUsaha = pekerjaan.id_BadanUsaha inner join lamaran on pekerjaan.id_Pekerjaan = lamaran.id_Pekerjaan where badan_usaha.id =?',[$id]);
-        $data_pelamar = PelamarModel::all();
+        $data = PelamarModel::with(['badanUsaha','pekerjaan'])->when($request->keyword, function ($query) use ($request) {
+            $query->where('nama', 'like', "%{$request->keyword}%");
+        })->get()->where('badanUsaha.id',$id);
+
         $table = "Tabel Pelamar [INSTANSI]";
-        return view('pages.back-end.pelamar.pelamar', compact('table', 'data_pelamar', 'data'));
+
+        return view('pages.back-end.pelamar.pelamar', compact('table', 'data'));
     }
 
     /**

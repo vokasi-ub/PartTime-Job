@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Storage;
 
 class FrontendController extends Controller
 {
-    public function indexJob()
+    public function indexJob(Request $request)
     {
         $table = "Tabel Pekerjaan";
-        $data_job = DB::table("pekerjaan")->pluck("posisi","id_Pekerjaan");
-        $data = DB::select('select * from badan_usaha inner join pekerjaan on badan_usaha.id_BadanUsaha = pekerjaan.id_BadanUsaha');
-        return view('pages.front-end.lowongan-frontend', compact('table', 'data', 'data_job'));
+        $data = PekerjaanModel::with(['badanUsaha','pelamar'])->when($request->keyword, function ($query) use ($request) {
+            $query->where('posisi', 'like', "%{$request->keyword}%");
+        })->get();
+        return view('pages.front-end.lowongan-frontend', compact('table', 'data'));
     }
 
     public function indexBadanUsaha(Request $request)
@@ -35,7 +36,7 @@ class FrontendController extends Controller
        $post = new \App\PelamarModel;
 
        $id = $request->id_Pekerjaan;
-       $query = DB::select('select * from pekerjaan where id_Pekerjaan =?', [$id]);
+       $query = PekerjaanModel::with(['badanUsaha','pelamar'])->get()->where('id_Pekerjaan', $id);
        
         foreach($query as $qry){
             $isi = $qry->id_BadanUsaha;

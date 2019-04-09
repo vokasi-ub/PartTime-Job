@@ -34,11 +34,11 @@
                       </thead>
                       <tbody>
                       <?php $nomor = 0; ?>
-                      @foreach($data as $job)
+                      @foreach($data as $key=>$job)
                       <?php $nomor++ ; ?>
                         <tr>
                           <td>{{ $nomor }}</td>
-                          <td>{{ $job->nama_BadanUsaha }}</td>
+                          <td>{{ $job->badanUsaha->nama_BadanUsaha }}</td>
                           <td>{{ $job->posisi }}</td>
                           <td>{{ $job->jam_Kerja }}</td>
                           <td>{{ $job->persyaratan }}</td>
