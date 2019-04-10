@@ -23,8 +23,12 @@
                           <select id="job" class="form-control input-lg dynamic" data-dependent="id_Pekerjaan" name="id_Pekerjaan">
                             <option selected="selected" value=""> -- Pilih Pekerjaan -- </option>
                               <div class="form-group">  
-                              @foreach($data_job as $key => $job )                            
-                            <option value="{{ $key }}">{{ $job }}</option>
+                              @foreach($data_job as $job ) 
+                              @if ($job->id_Pekerjaan == $data_pelamar->id_Pekerjaan)                           
+                            <option selected="selected" value="{{ $job->id_Pekerjaan }}">{{ $job->posisi }}</option>
+                              @else
+                            <option value="{{ $job->id_Pekerjaan }}">{{ $job->posisi }}</option>
+                              @endif
                               @endforeach                                                          
                             </div>                                                                                                                       
                           <select>

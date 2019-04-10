@@ -49,6 +49,14 @@ class FrontendController extends Controller
         $post->phone = $request->phone;
         $post->alamat = $request->alamat; 
 
+        $this->validate($request,[
+            'foto' => 'required|image|max:2048',
+            'ktp' => 'required|image|max:2048',
+            'skck' => 'required|image|max:2048',
+            'ktm' => 'required|image|max:2048',
+            'sks' => 'required|image|max:2048',
+        ]);
+
         $foto = $request->file('foto');
         $ktp = $request->file('ktp');
         $skck = $request->file('skck');
@@ -80,7 +88,7 @@ class FrontendController extends Controller
         $post->sks = $nama_sks;
 
         $post->save();
-        return redirect('lowongan');
+        return redirect('lowongan')->with('success', 'Kategori film telah diubah');
 
     }
 

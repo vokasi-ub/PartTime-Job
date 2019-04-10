@@ -50,22 +50,37 @@
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">Foto</label>
                               <input type="file" class="form-control" name="foto" placeholder="Nama Instansi.."> </div>
+                              @if ($errors->has('foto'))
+                              <div class="alert alert-danger">Harus Di Isi</div>
+                               @endif
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">KTP</label>
                               <input type="file" class="form-control" name="ktp" placeholder="Nama Instansi.."> </div>
+                              @if ($errors->has('ktp'))
+                              <div class="alert alert-danger">Harus Di Isi</div>
+                               @endif
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">SKCK</label>
                               <input type="file" class="form-control" name="skck" placeholder="Nama Instansi.."> </div>
+                              @if ($errors->has('skck'))
+                              <div class="alert alert-danger">Harus Di Isi</div>
+                               @endif
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">KTM</label>
                               <input type="file" class="form-control" name="ktm" placeholder="Nama Instansi.."> </div>
+                              @if ($errors->has('ktm'))
+                              <div class="alert alert-danger">Harus Di Isi</div>
+                               @endif
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">SK. Sehat</label>
                               <input type="file" class="form-control" name="sks" placeholder="Nama Instansi.."> </div>                          
+                              @if ($errors->has('sks'))
+                              <div class="alert alert-danger">Harus Di Isi</div>
+                               @endif
 
                             <button type="submit" class="btn btn-primary mb-2">Simpan</button>
                             

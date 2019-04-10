@@ -66,7 +66,6 @@
       <div class="container mt-5">
         <div class="row">
 
-          
 
         <div class="col">
                 <div class="card card-small mb-4">
@@ -89,6 +88,9 @@
                         </input>
                       </div>
                     </form>
+                    @if ($errors->has('foto') || $errors->has('ktp') || $errors->has('skck') || $errors->has('ktm') || $errors->has('sks'))
+                      <div class="alert alert-danger w-50">Tidak Berhasil, Data Tidak Benar, Mohon Ulangi Lagi dengan Pengisian Data Yang Teliti.</div>
+                    @endif
                     <a class="btn btn-warning btn-sm text-dark float-left ml-3" data-toggle="modal" data-target="#exampleModalCenter">Ajukan Lamaran</a>
                       <thead class="bg-light">
                         <tr>
@@ -252,15 +254,15 @@
 
                           <div class="form-group">            
                             <label class="col-sm-12 col-form-label row">Nama Pelamar</label>
-                              <input type="text" class="form-control" name="nama" placeholder="Nama Instansi.."> </div>
+                              <input type="text" class="form-control" name="nama" placeholder="Nama Pelamar.."> </div>
 
                           <div class="form-group">            
                             <label class="col-sm-12 col-form-label row">Email</label>
-                              <input type="text" class="form-control" name="email" placeholder="Nama Instansi.."> </div>
+                              <input type="email" class="form-control" name="email" placeholder="Eamil.."> </div>
 
                           <div class="form-group">            
                             <label class="col-sm-12 col-form-label row">No. Telp</label>
-                              <input type="text" class="form-control" name="phone" placeholder="Nama Instansi.."> </div>
+                              <input type="number" class="form-control" name="phone" placeholder="No telp.."> </div>
 
                           <div class="form-group">
                             <label for="exampleFormControlTextarea1">Tempat Tinggal</label>
@@ -270,24 +272,31 @@
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">Foto</label>
                               <input type="file" class="form-control" name="foto" placeholder="Nama Instansi.."> </div>
+                             
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">KTP</label>
                               <input type="file" class="form-control" name="ktp" placeholder="Nama Instansi.."> </div>
+                              
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">SKCK</label>
                               <input type="file" class="form-control" name="skck" placeholder="Nama Instansi.."> </div>
+                              
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">KTM</label>
                               <input type="file" class="form-control" name="ktm" placeholder="Nama Instansi.."> </div>
+                              
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">SK. Sehat</label>
-                              <input type="file" class="form-control" name="sks" placeholder="Nama Instansi.."> </div>                          
+                              <input type="file" class="form-control" name="sks" placeholder="Nama Instansi.."> </div>
+                                                      
 
-                            <button type="submit" class="btn btn-primary mb-2">Simpan</button>                        
+                            <button type="submit" class="btn btn-primary mb-2">Simpan</button>
+                            
+                                                    
 
       </div>
       </form>

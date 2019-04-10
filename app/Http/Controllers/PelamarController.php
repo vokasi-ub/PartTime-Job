@@ -68,39 +68,37 @@ class PelamarController extends Controller
         $post->phone = $request->phone;
         $post->alamat = $request->alamat; 
 
-        $foto = $request->file('foto');
-        $ktp = $request->file('ktp');
-        $skck = $request->file('skck');
-        $ktm = $request->file('ktm');
-        $sks = $request->file('sks');  
+        $this->validate($request,[
+            'foto' => 'required|image|max:2048',
+            'ktp' => 'required|image|max:2048',
+            'skck' => 'required|image|max:2048',
+            'ktm' => 'required|image|max:2048',
+            'sks' => 'required|image|max:2048',
+        ]);
 
-        $nama_foto = rand() . '.' . $foto->
-            getClientOriginalExtension();
-        $nama_ktp = rand() . '.' . $ktp->
-            getClientOriginalExtension();
-        $nama_skck = rand() . '.' . $skck->
-            getClientOriginalExtension();
-        $nama_ktm = rand() . '.' . $ktm->
-            getClientOriginalExtension();
-        $nama_sks = rand() . '.' . $sks->
-            getClientOriginalExtension();
+        $images = ['foto', 'ktp', 'skck', 'ktm', 'sks'];
 
 
-        $foto->move(public_path('images'), $nama_foto);
-        $ktp->move(public_path('images'), $nama_ktp);
-        $skck->move(public_path('images'), $nama_skck);
-        $ktm->move(public_path('images'), $nama_ktm);
-        $sks->move(public_path('images'), $nama_sks);
-
-        $post->foto = $nama_foto;
-        $post->ktp = $nama_ktp;
-        $post->skck = $nama_skck;
-        $post->ktm = $nama_ktm;
-        $post->sks = $nama_sks;
+            foreach ($images as $value) {
+            
+                if( ! empty($request->file($value)) ){
+                    $post[$value] = $this->storeImage($request, $value, $post);
+                }
+            }
 
         $post->save();
         return redirect('pelamar');
 
+    }
+
+    public function storeImage($request, $value, $post)
+    {
+        $file = $request->file($value);
+        $nama_img = rand() . '.' . $file->getClientOriginalExtension();       
+        $file->move(public_path('images'), $nama_img);
+        $post->{$value} = $nama_img;
+
+        return $nama_img;
     }
 
     /**
@@ -125,7 +123,7 @@ class PelamarController extends Controller
     public function edit($id_Lamaran)
     {
         $data_pelamar = PelamarModel::find($id_Lamaran);
-        $data_job = DB::table("pekerjaan")->pluck("posisi","id_Pekerjaan");
+        $data_job = PekerjaanModel::all();
         $post = PekerjaanModel::get(); 
         $table = "Edit Pekerjaan";
         return view('pages.pelamar.v_edit_pelamar', compact('post', 'table', 'data_pelamar','data_job'));
@@ -144,53 +142,31 @@ class PelamarController extends Controller
 
             $input = $request->all();
 
-            if($request->hasFile('foto') || $request->hasFile('ktp') || $request->hasFile('skck') || $request->hasFile('ktm') || $request->hasFile('sks')){
-                $foto = $request->file('foto');
-                $ktp = $request->file('ktp');
-                $skck = $request->file('skck');
-                $ktm = $request->file('ktm');
-                $sks = $request->file('sks');
-                    
-                if(isset($post->foto) && file_exists('images/'.$post->foto) || isset($post->ktp) && file_exists('images/'.$post->ktp) || isset($post->skck) && file_exists('images/'.$post->skck) || isset($post->ktm) && file_exists('images/'.$post->ktm) || isset($post->sks) && file_exists('images/'.$post->sks)){
-                        unlink('images/'.$post->foto);
-                        unlink('images/'.$post->ktp);
-                        unlink('images/'.$post->skck);
-                        unlink('images/'.$post->ktm);
-                        unlink('images/'.$post->sks);
-                    }
-                
-                if($foto->isValid() || $ktp->isValid() || $skck->isValid() || $ktm->isValid() || $sks->isValid()){
+            $images = ['foto', 'ktp', 'skck', 'ktm', 'sks'];
 
-                    $img_foto = rand() . '.' . $foto->
-                        getClientOriginalExtension();
-                    $img_ktp = rand() . '.' . $ktp->
-                        getClientOriginalExtension();
-                    $img_skck = rand() . '.' . $skck->
-                        getClientOriginalExtension();
-                    $img_ktm = rand() . '.' . $ktm->
-                        getClientOriginalExtension();
-                    $img_sks = rand() . '.' . $sks->
-                        getClientOriginalExtension();
 
-                    $upload_path = 'images';
-
-                    $foto->move($upload_path, $img_foto);
-                    $ktp->move($upload_path, $img_ktp);
-                    $skck->move($upload_path, $img_skck);
-                    $ktm->move($upload_path, $img_ktm);
-                    $sks->move($upload_path, $img_sks);
-
-                    $input['foto'] = $img_foto;
-                    $input['ktp'] = $img_ktp;
-                    $input['skck'] = $img_skck;
-                    $input['ktm'] = $img_ktm;
-                    $input['sks'] = $img_sks;
+            foreach ($images as $value) {
+            
+                if( ! empty($request->file($value)) ){
+                    $input[$value] = $this->uploadImage($request, $value, $post);
                 }
-
             }
 
             $post->update($input);
             return redirect('pelamar')->with('success', 'Kategori film telah diubah');
+    }
+
+
+    public function uploadImage($request, $field, $post)
+    {
+
+        $file = $request->file($field); // == $ktp = $request->file('ktp');
+        unlink('images/'.$post->{$field}); //== unlink('images/'.$post->ktp);
+        $name = rand() . '.' . $file->getClientOriginalExtension(); // == $img_ktp = rand() . '.' . $ktp->getClientOriginalExtension();
+        $upload_path = 'images';
+        $file->move($upload_path, $name);
+
+        return $name;
     }
 
     /**
