@@ -30,17 +30,18 @@ class FrontendController extends Controller
         })->get();
         return view('pages.front-end.badanUsaha-frontend', compact('table', 'data_post'));
     }
-
+    
     public function createApply(Request $request)
     {
        $post = new \App\PelamarModel;
 
        $id = $request->id_Pekerjaan;
-       $query = PekerjaanModel::with(['badanUsaha','pelamar'])->get()->where('id_Pekerjaan', $id);
-       
+       $query = DB::select('select * from pekerjaan where id_Pekerjaan =?', [$id]);
+    
         foreach($query as $qry){
             $isi = $qry->id_BadanUsaha;
         }
+        
 
         $post->id_Pekerjaan = $id;
         $post->id_BadanUsaha = $isi;
@@ -88,7 +89,18 @@ class FrontendController extends Controller
         $post->sks = $nama_sks;
 
         $post->save();
-        return redirect('lowongan')->with('success', 'Kategori film telah diubah');
+         return redirect('lowongan')->with('success', 'Kategori film telah diubah');
+
+    }
+
+    public function formApply(Request $request, $id_Pekerjaan)
+    {
+        $post = PekerjaanModel::find($id_Pekerjaan);
+
+        // $data_job = PekerjaanModel::with(['badanUsaha','pelamar'])->get();
+        $data_usaha = PekerjaanModel::all();
+
+        return view('pages.front-end.v_add_lamaran', compact('data_usaha','post'));
 
     }
 

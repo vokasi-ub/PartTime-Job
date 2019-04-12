@@ -26,6 +26,7 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('pages.front-end.content-frontend');
 });
+Route::get('/lowongan/isian/{id}', 'FrontendController@formApply')->name('lowongan.insert');
 Route::get('/lowongan', 'FrontendController@indexJob');
 Route::post('/lowongan', 'FrontendController@createApply');
 Route::get('/badanUsaha', 'FrontendController@indexBadanUsaha');

@@ -18,7 +18,7 @@
                           @csrf
                           <div class="form-group">
                           <label for="exampleInputEmail1">Nama Badan Usaha</label>
-                          <select id="id_BadanUsaha" class="form-control" name="id_BadanUsaha">                            
+                          <select disabled id="id_BadanUsaha" class="form-control" name="id_BadanUsaha">                            
                               <div class="form-group">
                               @foreach($data_instansi as $instansi)
                             <option value="{{ $instansi->id_BadanUsaha }}">{{ $instansi->nama_BadanUsaha }}</option>

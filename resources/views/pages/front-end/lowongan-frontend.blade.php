@@ -91,7 +91,6 @@
                     @if ($errors->has('foto') || $errors->has('ktp') || $errors->has('skck') || $errors->has('ktm') || $errors->has('sks'))
                       <div class="alert alert-danger w-50">Tidak Berhasil, Data Tidak Benar, Mohon Ulangi Lagi dengan Pengisian Data Yang Teliti.</div>
                     @endif
-                    <a class="btn btn-warning btn-sm text-dark float-left ml-3" data-toggle="modal" data-target="#exampleModalCenter">Ajukan Lamaran</a>
                       <thead class="bg-light">
                         <tr>
                           <th scope="col" class="border-0">#</th>
@@ -112,7 +111,8 @@
                           <td>{{ $job->posisi }}</td>
                           <td>{{ $job->jam_Kerja }}</td>
                           <td>{{ $job->persyaratan }}</td>
-                          <td>::                              
+                          <td>
+                          <a href="{{ route('lowongan.insert', $job->id_Pekerjaan) }}" class="btn btn-warning btn-sm text-dark float-left ml-3" >GassKeun!</a>                              
                           </td>
 							      	  </tr>
                       @endforeach
@@ -243,7 +243,8 @@
                           <label for="exampleInputEmail1">Nama Pekerjaan</label>
                           <select id="job" class="form-control input-lg dynamic" data-dependent="id_Pekerjaan" name="id_Pekerjaan">
                             <option selected="selected" value=""> -- Pilih Pekerjaan -- </option>
-                              <div class="form-group">  
+                              <div class="form-group">
+
                               @foreach($data as $yek=>$key)                            
                             <option value="{{ $key->id_Pekerjaan }}">{{ $key->badanUsaha->nama_BadanUsaha }} || {{ $key->posisi }}</option>
                               @endforeach                                                          
@@ -306,5 +307,6 @@
     </div>
   </div>
 </div>
+
 
 @endsection
