@@ -15,10 +15,11 @@
                           <strong class="text-muted d-block mb-2">Forms</strong>
 
                           <form method="post" role="form" action="{{ route('job.store') }}">
+
                           @csrf
                           <div class="form-group">
                           <label for="exampleInputEmail1">Nama Badan Usaha</label>
-                          <select id="id_BadanUsaha" class="form-control" name="id_BadanUsaha">
+                          <select id="id_BadanUsaha" class="form-control" name="id_BadanUsaha" required>
                             <option selected="selected" value=""> -- Pilih Badan Usaha -- </option>
                               <div class="form-group">
                               @foreach($data_instansi as $instansi)
@@ -29,11 +30,11 @@
 
                           <div class="form-group">            
                             <label class="col-sm-12 col-form-label row">Posisi Kerja</label>
-                              <input type="text" class="form-control" name="posisi" placeholder="Nama Instansi.."> </div>                          
+                              <input type="text" class="form-control" name="posisi" placeholder="Posisi Kerja.." required> </div>                          
 
                           <div class="form-group">
                           <label for="exampleInputEmail1">Waktu Kerja</label>
-                          <select id="jam_Kerja" class="form-control" name="jam_Kerja">
+                          <select id="jam_Kerja" class="form-control" name="jam_Kerja" required>
                             <option value=""> -- Pilih Shift Kerja -- </option>
                             <option value="Pagi"> Shift Pagi (08.00 WIB) </option>
                             <option value="Siang"> Shift Siang (13.00 WIB) </option>
@@ -42,7 +43,7 @@
 
                           <div class="form-group">
                             <label for="exampleFormControlTextarea1">Persyaratan</label>
-                            <textarea class="form-control" name="persyaratan" rows="5"></textarea>
+                            <textarea class="form-control" name="persyaratan" rows="5" required></textarea>
                           </div>
 
                             <button type="submit" class="btn btn-primary mb-2">Simpan</button>

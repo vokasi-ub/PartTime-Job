@@ -19,7 +19,7 @@
                           <div class="form-group">
                           @csrf
                           <label for="exampleInputEmail1">Akun Tertaut</label>
-                          <select id="id_BadanUsaha" class="form-control" name="id_BadanUsaha">
+                          <select id="id_BadanUsaha" class="form-control" name="id_BadanUsaha" required>
                             <option selected="selected" value=""> -- Pilih Akun Tertaut -- </option>
                               <div class="form-group">
                               @foreach($data as $instansi)
@@ -30,27 +30,27 @@
 
                             <div class="form-group">                            
                             <label class="col-sm-12 col-form-label row">Nama Instansi</label>
-                              <input type="text" class="form-control" name="nama_BadanUsaha" placeholder="Nama Instansi.."> </div>                          
+                              <input type="text" class="form-control" name="nama_BadanUsaha" placeholder="Nama Instansi.." required> </div>                          
 
                             <div class="form-group">
                             <label class="col-sm-12 col-form-label row">Alamat Instansi</label>
-                              <input type="text" class="form-control" name="alamat" placeholder="Alamat Instansi.."> </div>
+                              <input type="text" class="form-control" name="alamat" placeholder="Alamat Instansi.." required> </div>
 
                             <div class="form-group">
                             <label class="col-sm-12 col-form-label row">No. Telp Instansi</label>
-                              <input type="text" class="form-control" name="nomor_Telp" placeholder="Nomer Telepon Instansi.."> </div>
+                              <input type="number" class="form-control" name="nomor_Telp" placeholder="Nomer Telepon Instansi.." required> </div>
 
                             <div class="form-group">
                             <label class="col-sm-12 col-form-label row">Website Instansi</label>
-                              <input type="text" class="form-control" name="website" placeholder="Website Instansi.."> </div>
+                              <input type="url" class="form-control" name="website" placeholder="https://example.com" required> </div>
                             
                             <div class="form-group">
                             <label class="col-sm-12 col-form-label row">Tanggal Berdiri Instansi</label>
-                              <input type="text" class="date form-control" name="tgl_Berdiri" data-inputmask="'alias': 'dd/mm/yyyy'" placeholder="Tanggal Berdiri Instansi.." data-mask> </div>
+                              <input type="date" class="date form-control" name="tgl_Berdiri" data-inputmask="'alias': 'dd/mm/yyyy'" placeholder="Tanggal Berdiri Instansi.." data-mask required> </div>
 
                             <div class="form-group">
                             <label class="col-sm-12 col-form-label row">Email Instansi</label>
-                            <input type="email" class="form-control" aria-describedby="emailHelp" name="email" placeholder="Email Instansi.."> </div>
+                            <input type="email" class="form-control" aria-describedby="emailHelp" name="email" placeholder="Email Instansi.." required> </div>
 
                             <div class="form-group">
                             <label class="col-sm-12 col-form-label row">Social Media Instansi</label>

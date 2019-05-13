@@ -19,7 +19,7 @@
                           @csrf
                           <div class="form-group">
                           <label for="exampleInputEmail1">Nama Badan Usaha</label>
-                          <select id="id_BadanUsaha" class="form-control" name="id_BadanUsaha">
+                          <select id="id_BadanUsaha" class="form-control" name="id_BadanUsaha" required>
                         @foreach($post as $id)
                             <?php if($id->id_BadanUsaha == $data_job->id_BadanUsaha) { ?>
                             <option selected="selected" value="{{ $id->id_BadanUsaha }}">{{ $id->nama_BadanUsaha }}</option>
@@ -32,11 +32,11 @@
 
                           <div class="form-group">            
                             <label class="col-sm-12 col-form-label row">Posisi Kerja</label>
-                              <input type="text" class="form-control" name="posisi" value="{{ $data_job->posisi }}"> </div>                          
+                              <input type="text" class="form-control" name="posisi" value="{{ $data_job->posisi }}" required> </div>                          
 
                           <div class="form-group">
                           <label for="exampleInputEmail1">Waktu Kerja</label>
-                          <select id="jam_Kerja" class="form-control" name="jam_Kerja">
+                          <select id="jam_Kerja" class="form-control" name="jam_Kerja" required>
                             <option value=""> -- Pilih Shift Kerja -- </option>
                             <option value="Pagi"<?=$data_job['jam_Kerja'] == 'Pagi' ? ' selected="selected"' : '';?>>Shift Pagi (08.00 WIB)</option>                            
                             <option value="Siang"<?=$data_job['jam_Kerja'] == 'Siang' ? ' selected="selected"' : '';?>>Shift Siang (13.00 WIB)</option>
@@ -45,7 +45,7 @@
 
                           <div class="form-group">
                             <label for="exampleFormControlTextarea1">Persyaratan</label>
-                            <textarea class="form-control" name="persyaratan" value="" rows="5">{{ $data_job->persyaratan }}</textarea>
+                            <textarea class="form-control" name="persyaratan" value="" rows="5" required>{{ $data_job->persyaratan }}</textarea>
                           </div>
 
                             <button type="submit" class="btn btn-primary mb-2">Simpan</button>

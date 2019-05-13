@@ -32,15 +32,15 @@
 
                           <div class="form-group">            
                             <label class="col-sm-12 col-form-label row">Nama Pelamar</label>
-                              <input type="text" class="form-control" name="nama" placeholder="Nama Instansi.."> </div>
+                              <input type="text" class="form-control" name="nama" placeholder="Masukkan nama anda.."> </div>
 
                           <div class="form-group">            
                             <label class="col-sm-12 col-form-label row">Email</label>
-                              <input type="text" class="form-control" name="email" placeholder="Nama Instansi.."> </div>
+                              <input type="email" class="form-control" name="email" placeholder="Masukkan email anda.."> </div>
 
                           <div class="form-group">            
                             <label class="col-sm-12 col-form-label row">No. Telp</label>
-                              <input type="text" class="form-control" name="phone" placeholder="Nama Instansi.."> </div>
+                              <input type="number" class="form-control" name="phone" placeholder="Masukkan No. Telp.."> </div>
 
                           <div class="form-group">
                             <label for="exampleFormControlTextarea1">Tempat Tinggal</label>
@@ -49,35 +49,35 @@
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">Foto</label>
-                              <input type="file" class="form-control" name="foto" placeholder="Nama Instansi.."> </div>
+                              <input type="file" class="form-control" name="foto" placeholder="Foto Tampak wajah.."> </div>
                               @if ($errors->has('foto'))
                               <div class="alert alert-danger">Harus Di Isi</div>
                                @endif
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">KTP</label>
-                              <input type="file" class="form-control" name="ktp" placeholder="Nama Instansi.."> </div>
+                              <input type="file" class="form-control" name="ktp" placeholder="unggah KTP anda.."> </div>
                               @if ($errors->has('ktp'))
                               <div class="alert alert-danger">Harus Di Isi</div>
                                @endif
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">SKCK</label>
-                              <input type="file" class="form-control" name="skck" placeholder="Nama Instansi.."> </div>
+                              <input type="file" class="form-control" name="skck" placeholder="unggah SKCK anda.."> </div>
                               @if ($errors->has('skck'))
                               <div class="alert alert-danger">Harus Di Isi</div>
                                @endif
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">KTM</label>
-                              <input type="file" class="form-control" name="ktm" placeholder="Nama Instansi.."> </div>
+                              <input type="file" class="form-control" name="ktm" placeholder="unggah KTM anda.."> </div>
                               @if ($errors->has('ktm'))
                               <div class="alert alert-danger">Harus Di Isi</div>
                                @endif
 
                           <div class="form-group">            
                             <label class="col-sm-8 col-form-label row">SK. Sehat</label>
-                              <input type="file" class="form-control" name="sks" placeholder="Nama Instansi.."> </div>                          
+                              <input type="file" class="form-control" name="sks" placeholder="unggah SK. Sehat anda.."> </div>                          
                               @if ($errors->has('sks'))
                               <div class="alert alert-danger">Harus Di Isi</div>
                                @endif

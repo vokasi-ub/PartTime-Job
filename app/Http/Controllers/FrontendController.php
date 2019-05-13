@@ -50,13 +50,8 @@ class FrontendController extends Controller
         $post->phone = $request->phone;
         $post->alamat = $request->alamat; 
 
-        $this->validate($request,[
-            'foto' => 'required|image|max:2048',
-            'ktp' => 'required|image|max:2048',
-            'skck' => 'required|image|max:2048',
-            'ktm' => 'required|image|max:2048',
-            'sks' => 'required|image|max:2048',
-        ]);
+        $this->isValid($request);
+        
 
         $foto = $request->file('foto');
         $ktp = $request->file('ktp');
@@ -91,6 +86,17 @@ class FrontendController extends Controller
         $post->save();
          return redirect('lowongan')->with('success', 'Kategori film telah diubah');
 
+    }
+
+    public function isValid($request)
+    {
+        $this->validate($request,[
+            'foto' => 'required|image|max:2048',
+            'ktp' => 'required|image|max:2048',
+            'skck' => 'required|image|max:2048',
+            'ktm' => 'required|image|max:2048',
+            'sks' => 'required|image|max:2048',
+        ]);
     }
 
     public function formApply(Request $request, $id_Pekerjaan)

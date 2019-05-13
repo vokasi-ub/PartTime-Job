@@ -28,7 +28,7 @@
 
                           <div class="form-group">            
                             <label class="col-sm-12 col-form-label row">Posisi Kerja</label>
-                              <input type="text" class="form-control" name="posisi" placeholder="Nama Instansi.."> </div>                          
+                              <input type="text" class="form-control" name="posisi" placeholder="Posisi Kerja.."> </div>                          
 
                           <div class="form-group">
                           <label for="exampleInputEmail1">Waktu Kerja</label>

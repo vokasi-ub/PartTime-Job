@@ -68,13 +68,8 @@ class PelamarController extends Controller
         $post->phone = $request->phone;
         $post->alamat = $request->alamat; 
 
-        $this->validate($request,[
-            'foto' => 'required|image|max:2048',
-            'ktp' => 'required|image|max:2048',
-            'skck' => 'required|image|max:2048',
-            'ktm' => 'required|image|max:2048',
-            'sks' => 'required|image|max:2048',
-        ]);
+        $this->isValid($request);
+        
 
         $images = ['foto', 'ktp', 'skck', 'ktm', 'sks'];
 
@@ -99,6 +94,59 @@ class PelamarController extends Controller
         $post->{$value} = $nama_img;
 
         return $nama_img;
+    }
+
+    public function isValid($request)
+    {
+        $this->validate($request,[
+            'foto' => 'required|image|max:2048',
+            'ktp' => 'required|image|max:2048',
+            'skck' => 'required|image|max:2048',
+            'ktm' => 'required|image|max:2048',
+            'sks' => 'required|image|max:2048',
+        ]);
+    }
+
+    public function isValid2($request)
+    {
+        $rules = [];
+
+            if ($request->has('foto')) {
+
+                $request->validate([
+                    'foto' => 'required|image|max:2048',
+                ]);
+            }
+
+            if ($request->has('ktp')) {
+                
+                $request->validate([
+                    'ktp' => 'required|image|max:2048',
+                ]);
+            }
+
+            if ($request->has('skck')) {
+                
+                $request->validate([
+                    'skck' => 'required|image|max:2048',
+                ]);
+            }
+
+            if ($request->has('ktm')) {
+                
+                $request->validate([
+                    'ktm' => 'required|image|max:2048',
+                ]);
+            }
+
+            if ($request->has('sks')) {
+                
+                $request->validate([
+                    'sks' => 'required|image|max:2048',
+                ]);
+            }
+
+             return $rules;
     }
 
     /**
@@ -160,6 +208,8 @@ class PelamarController extends Controller
     public function uploadImage($request, $field, $post)
     {
 
+        $this->isValid2($request);
+             
         $file = $request->file($field); // == $ktp = $request->file('ktp');
         unlink('images/'.$post->{$field}); //== unlink('images/'.$post->ktp);
         $name = rand() . '.' . $file->getClientOriginalExtension(); // == $img_ktp = rand() . '.' . $ktp->getClientOriginalExtension();
