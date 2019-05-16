@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 use App\BadanUsahaModel;
+use \Auth;
 use Closure;
 
 class isComplete
@@ -16,10 +17,10 @@ class isComplete
     public function handle($request, Closure $next)
     {
 
-        $id = $request->route('id');
-        $result = BadanUsahaModel::where('id', $id)->first();
+        // $id = $request->route('id');
+        // $result = BadanUsahaModel::where('id', $id)->first();
 
-        if(auth()->check() && $request->user()->level == 'instansi' && $result != null) {
+        if(auth()->check() && $request->user()->level == 'instansi' && empty(BadanUsahaModel::where('id', Auth::id())->first())) {
 
                 return redirect()->guest('/instansi');
             

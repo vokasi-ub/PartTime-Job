@@ -15,7 +15,8 @@ class CreatePekerjaanTable extends Migration
     {
         Schema::create('pekerjaan', function (Blueprint $table) {
             $table->bigIncrements('id_Pekerjaan');
-            $table->integer('id_BadanUsaha');
+            $table->unsignedBigInteger('id_BadanUsaha');
+            $table->foreign('id_BadanUsaha')->references('id_BadanUsaha')->on('badan_usaha')->onDelete('CASCADE');
             $table->string('posisi', 50);
             $table->string('jam_Kerja', 10);
             $table->text('persyaratan');

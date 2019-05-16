@@ -99,9 +99,22 @@ class LamaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_Lamaran)
     {
-        //
+        $post = PelamarModel::find($id_Lamaran);
+
+        if(isset($post->foto) && file_exists('images/'.$post->foto) && isset($post->ktp) && file_exists('images/'.$post->ktp) && isset($post->skck) && file_exists('images/'.$post->skck) && isset($post->ktm) && file_exists('images/'.$post->ktm) && isset($post->sks) && file_exists('images/'.$post->sks)){
+            unlink('images/'.$post->foto);
+            unlink('images/'.$post->ktp);
+            unlink('images/'.$post->skck);
+            unlink('images/'.$post->ktm);
+            unlink('images/'.$post->sks);
+        }else{
+            echo"sasasasas";
+        }
+
+        $post->delete();
+        return redirect('lamaran')->with('success', 'Stock has been deleted Successfully');
     }
 
     public function emailHim(Request $request){
@@ -123,4 +136,5 @@ class LamaranController extends Controller
 
         return redirect('lamaran');
     }
+        
 }

@@ -64,9 +64,12 @@
     <section id="about">
 
       <div class="container mt-5">
+      @if(session()->get('success'))
+          <div class="alert alert-success w-100 h-50">
+            {{ session()->get('success') }}
+          </div>
+        @endif
         <div class="row">
-
-
         <div class="col">
                 <div class="card card-small mb-4">
                   <div class="card-header border-bottom">
@@ -88,9 +91,6 @@
                         </input>
                       </div>
                     </form>
-                    @if ($errors->has('foto') || $errors->has('ktp') || $errors->has('skck') || $errors->has('ktm') || $errors->has('sks'))
-                      <div class="alert alert-danger w-50">Tidak Berhasil, Data Tidak Benar, Mohon Ulangi Lagi dengan Pengisian Data Yang Teliti.</div>
-                    @endif
                       <thead class="bg-light">
                         <tr>
                           <th scope="col" class="border-0">#</th>

@@ -110,11 +110,15 @@
                         <td>{{$instansi->nama_BadanUsaha}}</td>
                         <td>{{$instansi->alamat}}</td>
                         <td>{{$instansi->nomor_telp}}</td>
-                        <td>{{$instansi->website}}</td>
+                        <td>
+                          <a href="{{$instansi->website}}">
+                            Visit Our Web
+                          </a>
+                        </td>
                         <td>{{$instansi->tgl_Berdiri}}</td>
                         <td>{{$instansi->email}}</td>
                         <td>
-                              <a class="btn btn-warning btn-sm" href="#">Sosmednya</a>
+                              <a class="btn btn-warning btn-sm" href="{{ $instansi->social_Media }}">Sosmednya</a>
                         </td>
 							      	</tr>
         					     @endforeach                      

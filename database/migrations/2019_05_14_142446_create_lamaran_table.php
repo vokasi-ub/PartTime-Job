@@ -15,8 +15,10 @@ class CreateLamaranTable extends Migration
     {
         Schema::create('lamaran', function (Blueprint $table) {
             $table->bigIncrements('id_Lamaran');
-            $table->integer('id_Pekerjaan');
-            $table->integer('id_BadanUsaha');
+            $table->unsignedBigInteger('id_Pekerjaan');
+            $table->foreign('id_Pekerjaan')->references('id_Pekerjaan')->on('pekerjaan')->onDelete('CASCADE');
+            $table->unsignedBigInteger('id_BadanUsaha');
+            $table->foreign('id_BadanUsaha')->references('id_BadanUsaha')->on('badan_usaha')->onDelete('CASCADE');
             $table->string('nama', 30);
             $table->string('email', 50);
             $table->string('phone', 30);

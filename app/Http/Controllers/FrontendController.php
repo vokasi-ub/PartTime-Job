@@ -36,8 +36,8 @@ class FrontendController extends Controller
        $post = new \App\PelamarModel;
 
        $id = $request->id_Pekerjaan;
-       $query = DB::select('select * from pekerjaan where id_Pekerjaan =?', [$id]);
-    
+       $query = PekerjaanModel::with(['badanUsaha','pelamar'])->where('id_Pekerjaan', $id)->get();
+
         foreach($query as $qry){
             $isi = $qry->id_BadanUsaha;
         }
@@ -84,7 +84,7 @@ class FrontendController extends Controller
         $post->sks = $nama_sks;
 
         $post->save();
-         return redirect('lowongan')->with('success', 'Kategori film telah diubah');
+         return redirect('lowongan')->with('success', 'Lamaran Berhasil dikirim !, untuk info selanjutnya akan dikirim lewat email..');
 
     }
 

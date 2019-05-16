@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 use App\BadanUsahaModel;
+use Illuminate\Support\Facades\Auth;
 use Closure;
 
 class dontCreate
@@ -15,12 +16,12 @@ class dontCreate
      */
     public function handle($request, Closure $next)
     {
-        $id = $request->route('id');
-        $result = BadanUsahaModel::where('id', $id)->first();
+        // $id = Auth::id();
+        // $result = BadanUsahaModel::where('id', $id)->first();
 
-        if(auth()->check() && $request->user()->level == 'instansi' && $result == null) {
+        if(auth()->check() && $request->user()->level == 'instansi' && !empty(BadanUsahaModel::where('id', Auth::id())->first())) {
 
-                return redirect()->guest('/instansi');
+            return redirect()->guest('/instansi');
             
         }
             return $next($request);

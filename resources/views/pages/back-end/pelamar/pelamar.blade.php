@@ -56,7 +56,12 @@
                           <td><img src="{{ URL::to('/')}}/images/{{ $lamar->sks }}" class="img-tumbnail" width="75" /></td>
                           <td>
                               <a href="{{ route('lamaran.show', $lamar->id_Lamaran) }}" class="btn btn-primary mb-2">Show</a> 
-                              <a href="{{ route('lamaran.edit', $lamar->id_Lamaran) }}" class="btn btn-success">Email him/her</a>              
+                              <a href="{{ route('lamaran.edit', $lamar->id_Lamaran) }}" class="btn btn-success mb-2">Email him/her</a>              
+                              <form action="{{ route('lamaran.destroy', $lamar->id_Lamaran) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm">Hapus</button>
+                              </form>
                           </td>
 							      	  </tr>
                       @endforeach

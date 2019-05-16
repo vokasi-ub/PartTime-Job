@@ -41,7 +41,7 @@ class LowonganController extends Controller
     {
         $id = \Auth::user()->id;
         $table = "Tambah Pekerjaan [INSTANSI]"; 
-        $data_instansi = DB::select('select * from badan_usaha where id =?', [$id]);
+        $data_instansi = BadanUsahaModel::where('id', $id)->get();
         return view("pages.back-end.pekerjaan.v_add_pekerjaan", compact('table', 'data_instansi'));
     }
 

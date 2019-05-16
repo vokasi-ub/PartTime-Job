@@ -26,6 +26,8 @@
                               </div>
                           <select>
 
+                          <input type="hidden" required class="form-control" name="id_BadanUsaha" value="{{$instansi->id_BadanUsaha}}">
+
                           <div class="form-group">            
                             <label class="col-sm-12 col-form-label row">Posisi Kerja</label>
                               <input type="text" class="form-control" name="posisi" placeholder="Posisi Kerja.."> </div>                          

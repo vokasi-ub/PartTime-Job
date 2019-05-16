@@ -15,7 +15,8 @@ class CreateBadanUsahaTable extends Migration
     {
         Schema::create('badan_usaha', function (Blueprint $table) {
             $table->bigIncrements('id_BadanUsaha');
-            $table->integer('id');
+            $table->unsignedBigInteger('id');
+            $table->foreign('id')->references('id')->on('users')->onDelete('CASCADE');
             $table->string('nama_BadanUsaha', 50);
             $table->string('alamat', 50);
             $table->string('nomor_telp', 50);

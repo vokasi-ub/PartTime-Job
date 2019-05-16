@@ -40,7 +40,7 @@ class PelamarController extends Controller
     public function create()
     {
         $table = "Tambah Lamaran";
-        $data_job = DB::table("pekerjaan")->pluck("posisi","id_Pekerjaan");
+        $data_job = PekerjaanModel::pluck("posisi","id_Pekerjaan");
         return view("pages.pelamar.v_add_pelamar", compact('table','data_job'));
     }
 
@@ -55,7 +55,7 @@ class PelamarController extends Controller
        $post = new \App\PelamarModel;
 
        $id = $request->id_Pekerjaan;
-       $query = DB::select('select * from pekerjaan where id_Pekerjaan =?', [$id]);
+       $query = PekerjaanModel::with(['badanUsaha','pelamar'])->where('id_Pekerjaan', $id)->get();
        
         foreach($query as $qry){
             $isi = $qry->id_BadanUsaha;
